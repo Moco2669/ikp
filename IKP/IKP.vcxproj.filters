@@ -18,5 +18,16 @@
     <ClCompile Include="IKP.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="PointerToNodeMap.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Heap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PointerToNodeMap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
