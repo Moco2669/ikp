@@ -16,6 +16,6 @@ PointerNode_t* createNode(void* pointer, HeapNode_t* node);
 
 bool hashPointer(int sizeOfArray, PointerNode_t** array, void* pointer, HeapNode_t* node);
 
-PointerNode_t* getNodeFromPointer(int sizeOfArray, PointerNode_t* array, void* pointer);
+PointerNode_t* getNodeFromPointer(int sizeOfArray, PointerNode_t** array, void* pointer);
 
 #endif // !POINTERTONODEMAP_H
