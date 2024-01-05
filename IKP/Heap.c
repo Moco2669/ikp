@@ -1,5 +1,4 @@
 #include <stdlib.h>
-
 #include "Heap.h"
 
 void initializeHeap(Heap* heap) {
