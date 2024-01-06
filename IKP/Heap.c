@@ -3,25 +3,24 @@
 
 void initializeHeap(Heap* heap) {
 	heap->firstNode = NULL;
+	heap->size = HEAPSIZE;
 }
 
-void addNodeToHeap(Heap* heap, void* dataPtr) {
-	HeapNode_t* node = (HeapNode_t*)malloc(sizeof(HeapNode_t));
-	
-	node->data = dataPtr;
-	node->marked = false;
-	node->next = heap->firstNode;
-
-	heap->firstNode = node;
-}
-
-void* allocate(Heap* heap, size_t size) {
-	void* data = malloc(size);
-	
-	if (data == NULL) {
+void* addNodeToHeap(Heap* heap, size_t size, void* dataPtr) {
+	if (heap->size - size < 0) {
 		return NULL;
 	}
 
-	addNodeToHeap(heap, data);
+	HeapNode_t* node = (HeapNode_t*)malloc(sizeof(HeapNode_t));
+	void* data = (void*)malloc(sizeof(size));
+	
+	node->data = data;
+	node->pointer = dataPtr;
+	node->marked = false;
+	node->last = heap->firstNode;
+	
+	heap->size -= size;
+	heap->firstNode = node;
+
 	return data;
 }
