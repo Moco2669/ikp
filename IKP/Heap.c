@@ -8,7 +8,8 @@ void initializeHeap(Heap* heap) {
 
 void* addNodeToHeap(Heap* heap, size_t size, void* dataPtr) {
 	//simulirani heap koji ima velicinu u bajtima
-	if (heap->size - size < 0) {
+	int temp = heap->size - size;
+	if (temp < 0) {
 		return NULL;
 	}
 
@@ -20,10 +21,18 @@ void* addNodeToHeap(Heap* heap, size_t size, void* dataPtr) {
 	node->pointer = dataPtr;
 	node->marked = false;
 	node->last = heap->firstNode;
+	node->size = size;
 	
 	heap->size -= size;
 	heap->firstNode = node;
 
 	//vraca pokazivac na heap koji moze da se kastuje u potrebni tip podataka kao kod pravog malloca
 	return data;
+}
+
+//trenutno samo za testiranje
+void removeNodeFromHeap(Heap* heap, HeapNode_t* node) {
+	heap->size += 512;
+
+	free(node->data);
 }

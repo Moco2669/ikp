@@ -10,6 +10,7 @@ struct HeapNode {
 	void* pointer;
 	bool marked;
 	HeapNode_t* last;
+	size_t size;
 };
 
 typedef struct Heap {
@@ -20,3 +21,5 @@ typedef struct Heap {
 void initializeHeap(Heap* heap);
 
 void* addNodeToHeap(Heap* heap, size_t size, void* dataPtr);
+
+void removeNodeFromHeap(Heap* heap, HeapNode_t* node);

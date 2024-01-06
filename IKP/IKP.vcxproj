@@ -141,7 +141,7 @@
   <ItemGroup>
     <ClCompile Include="GarbageCollector.c" />
     <ClCompile Include="Heap.c" />
-    <ClCompile Include="IKP.cpp" />
+    <ClCompile Include="IKP.c" />
     <ClCompile Include="PointerToNodeMap.c" />
   </ItemGroup>
   <ItemGroup>

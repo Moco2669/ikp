@@ -1,2 +1,4 @@
-﻿  IKP.cpp
+﻿  IKP.c
+C:\ikp\ikp\IKP\IKP.c(24,25): warning C4047: 'function': 'HeapNode_t *' differs in levels of indirection from 'int **'
+C:\ikp\ikp\IKP\IKP.c(24,25): warning C4024: 'removeNodeFromHeap': different types for formal and actual parameter 2
   IKP.vcxproj -> C:\ikp\ikp\Debug\IKP.exe
