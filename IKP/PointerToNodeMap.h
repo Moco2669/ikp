@@ -9,7 +9,7 @@
 typedef struct PointerToNodeEntry {
 	void* data;
 	HeapNode_t* node;
-	PointerNode_t* next;
+	struct PointerNode_t* next;
 } PointerNode_t;
 
 PointerNode_t* createNode(void* pointer, HeapNode_t* node);

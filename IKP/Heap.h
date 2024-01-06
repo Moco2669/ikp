@@ -1,13 +1,16 @@
 #pragma once
 #include <stdbool.h>
+#include <stddef.h>
 #define HEAPSIZE 1024
 
-typedef struct HeapNode {
+typedef struct HeapNode HeapNode_t;
+
+struct HeapNode {
 	void* data;
 	void* pointer;
 	bool marked;
 	HeapNode_t* last;
-} HeapNode_t;
+};
 
 typedef struct Heap {
 	HeapNode_t* firstNode;

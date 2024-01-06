@@ -14,8 +14,8 @@ GC* InitializeGC(Heap* heap, PointerNode_t* map) {
 }
 
 void Mark(GC* collector, int sizeOfArray, PointerNode_t** array) {
-	while (collector->heap->firstNode->next != NULL) {
+	/*while (collector->heap->firstNode->next != NULL) {
 		if(collector->heap->firstNode->data)
-	}
+	}*/
 	
 }
