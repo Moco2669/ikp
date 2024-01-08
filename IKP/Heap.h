@@ -11,6 +11,7 @@ struct HeapNode {
 	bool marked;
 	HeapNode_t* prev;
 	size_t size;
+	int gen;
 };
 
 typedef struct Heap {

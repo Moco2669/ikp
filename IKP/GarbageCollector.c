@@ -1,5 +1,6 @@
 #include "GarbageCollector.h"
 
+
 GC* InitializeGC(Heap* heap, PointerNode_t* map) {
 	GC* collector = (GC*)malloc(sizeof(GC));
 
@@ -18,9 +19,11 @@ void Mark(GC* collector, int sizeOfArray, PointerNode_t** array, void* pointer) 
 	HeapNode_t* hn = collector->heap->lastNode;
 	
 	while (hn != NULL) {
-		if (hn->pointer == pn->data) {
-			hn->marked = true;
-			break;
+		if (hn->gen == 1) {
+			if (hn->pointer == pn->data) {
+				hn->marked = true;
+				break;
+			}
 		}
 
 		hn = hn->prev;
@@ -46,8 +49,10 @@ void Sweep(GC* collector) {
 			}
 		}
 		else {
+			hn->gen = 2;
 			temp = hn;
 			hn = hn->prev;
 		}
 	}
 }
+

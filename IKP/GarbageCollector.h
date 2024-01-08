@@ -1,6 +1,9 @@
 #pragma once
 #include "Heap.h"
 #include "PointerToNodeMap.h"
+#include <windows.h>
+#include <tlhelp32.h>
+#include <psapi.h>
 
 typedef struct GarbageCollector {
 	Heap* heap;

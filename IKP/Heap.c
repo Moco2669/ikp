@@ -10,6 +10,7 @@ void* addNodeToHeap(Heap* heap, size_t size, void* dataPtr) {
 	//simulirani heap koji ima velicinu u bajtima
 	int temp = heap->size - size;
 	if (temp < 0) {
+		//ovde treba da se pozove GC
 		return NULL;
 	}
 
@@ -22,8 +23,15 @@ void* addNodeToHeap(Heap* heap, size_t size, void* dataPtr) {
 	node->marked = false;
 	node->prev = heap->lastNode;
 	node->size = size;
+
+	if (size <= 10240) {
+		node->gen = 1;
+		heap->size -= size;
+	}
+	else {
+		node->gen = 0;
+	}
 	
-	heap->size -= size;
 	heap->lastNode = node;
 
 	//vraca pokazivac na heap koji moze da se kastuje u potrebni tip podataka kao kod pravog malloca
