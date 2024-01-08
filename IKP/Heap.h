@@ -22,4 +22,6 @@ void initializeHeap(Heap* heap);
 
 void* addNodeToHeap(Heap* heap, size_t size, void* dataPtr);
 
-void removeNodeFromHeap(Heap* heap, HeapNode_t* node);
+void dealloc(Heap* heap, HeapNode_t* node);
+
+void removeNodeFromHeap(Heap* heap, void* ptr);

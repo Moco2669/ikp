@@ -32,8 +32,9 @@ void Sweep(GC* collector) {
 
 	while (hn != NULL) {
 		if (!hn->marked) {
+			dealloc(collector->heap, hn);
+
 			if (temp == NULL) {
-				removeNodeFromHeap(collector->heap, hn);
 				collector->heap->lastNode = hn->prev;
 				free(hn);
 				hn = collector->heap->lastNode;

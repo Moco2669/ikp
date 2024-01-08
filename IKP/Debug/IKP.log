@@ -1,3 +1,9 @@
-﻿  IKP.c
-C:\ikp\ikp\IKP\IKP.c(24,2): warning C4013: 'dealloc' undefined; assuming extern returning int
+﻿  GarbageCollector.c
+  Heap.c
+  IKP.c
+  PointerToNodeMap.c
+C:\ikp\ikp\IKP\PointerToNodeMap.c(15,11): warning C4133: '=': incompatible types - from 'PointerNode_t *' to 'PointerNode_t *'
+C:\ikp\ikp\IKP\PointerToNodeMap.c(19,16): warning C4133: '=': incompatible types - from 'PointerNode_t *' to 'PointerNode_t *'
+C:\ikp\ikp\IKP\PointerToNodeMap.c(39,13): warning C4133: '=': incompatible types - from 'PointerNode_t *' to 'PointerNode_t *'
+  Generating Code...
   IKP.vcxproj -> C:\ikp\ikp\Debug\IKP.exe

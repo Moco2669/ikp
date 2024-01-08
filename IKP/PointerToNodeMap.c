@@ -40,4 +40,3 @@ PointerNode_t* getNodeFromPointer(int sizeOfArray, PointerNode_t **array, void* 
 	}
 	return NULL;
 }
-

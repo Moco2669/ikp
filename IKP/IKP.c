@@ -20,8 +20,7 @@ int main() {
 		printf("Nema memorije\n");
 	}
 
-	//removeNodeFromHeap(&h, &node1);
-	dealloc(&h, node2);
+	removeNodeFromHeap(&h, &node1);
 
 	int* node3 = (int*)addNodeToHeap(&h, 128 * sizeof(int), &node3);
 	if (node3 != NULL) {

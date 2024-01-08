@@ -30,15 +30,16 @@ void* addNodeToHeap(Heap* heap, size_t size, void* dataPtr) {
 	return data;
 }
 
-void removeNodeFromHeap(Heap* heap, HeapNode_t* node) {
+void dealloc(Heap* heap, HeapNode_t* node) {
 	heap->size += node->size;
+	free(node->data);
 }
 
-void dealloc(Heap* heap, void* ptr) {
+void removeNodeFromHeap(Heap* heap, void* ptr) {
 	HeapNode_t* hn = heap->lastNode, * temp = NULL;
 
 	while (hn != NULL) {
-		if (hn->data == ptr) {
+		if (hn->pointer == ptr) {
 			if (temp == NULL) {
 				heap->lastNode = hn->prev;
 			}
@@ -46,7 +47,8 @@ void dealloc(Heap* heap, void* ptr) {
 				temp->prev = hn->prev;
 			}
 
-			removeNodeFromHeap(heap, hn);
+			dealloc(heap, hn);
+			break;
 		}
 
 		temp = hn;
