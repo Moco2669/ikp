@@ -21,7 +21,7 @@ int main() {
 	}
 
 	//removeNodeFromHeap(&h, &node1);
-	removeNodeFromHeap(&h, &node2);
+	dealloc(&h, node2);
 
 	int* node3 = (int*)addNodeToHeap(&h, 128 * sizeof(int), &node3);
 	if (node3 != NULL) {

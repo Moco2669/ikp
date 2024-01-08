@@ -2,7 +2,7 @@
 #include "Heap.h"
 
 void initializeHeap(Heap* heap) {
-	heap->firstNode = NULL;
+	heap->lastNode = NULL;
 	heap->size = HEAPSIZE;
 }
 
@@ -20,19 +20,38 @@ void* addNodeToHeap(Heap* heap, size_t size, void* dataPtr) {
 	node->data = data;
 	node->pointer = dataPtr;
 	node->marked = false;
-	node->last = heap->firstNode;
+	node->prev = heap->lastNode;
 	node->size = size;
 	
 	heap->size -= size;
-	heap->firstNode = node;
+	heap->lastNode = node;
 
 	//vraca pokazivac na heap koji moze da se kastuje u potrebni tip podataka kao kod pravog malloca
 	return data;
 }
 
-//trenutno samo za testiranje
 void removeNodeFromHeap(Heap* heap, HeapNode_t* node) {
-	heap->size += 512;
+	heap->size += node->size;
+}
 
-	free(node->data);
+void dealloc(Heap* heap, void* ptr) {
+	HeapNode_t* hn = heap->lastNode, * temp = NULL;
+
+	while (hn != NULL) {
+		if (hn->data == ptr) {
+			if (temp == NULL) {
+				heap->lastNode = hn->prev;
+			}
+			else {
+				temp->prev = hn->prev;
+			}
+
+			removeNodeFromHeap(heap, hn);
+		}
+
+		temp = hn;
+		hn = hn->prev;
+	}
+
+	free(hn);
 }

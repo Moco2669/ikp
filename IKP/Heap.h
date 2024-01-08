@@ -9,12 +9,12 @@ struct HeapNode {
 	void* data;
 	void* pointer;
 	bool marked;
-	HeapNode_t* last;
+	HeapNode_t* prev;
 	size_t size;
 };
 
 typedef struct Heap {
-	HeapNode_t* firstNode;
+	HeapNode_t* lastNode;
 	int size;
 } Heap;
 

@@ -9,6 +9,6 @@ typedef struct GarbageCollector {
 
 GC* InitializeGC(Heap* heap, PointerNode_t* map);
 
-void Mark(GC* collector, int sizeOfArray, PointerNode_t** array);
+void Mark(GC* collector, int sizeOfArray, PointerNode_t** array, void* pointer);
 
-void Sweep();
+void Sweep(GC* collector);
