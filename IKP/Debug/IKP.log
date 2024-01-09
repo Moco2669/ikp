@@ -1,4 +1,6 @@
 ﻿  GarbageCollector.c
+C:\ikp\ikp\IKP\GarbageCollector.c(38,21): warning C4133: 'function': incompatible types - from 'Heap *' to 'HeapNode_t *'
+C:\ikp\ikp\IKP\GarbageCollector.c(38,29): warning C4020: 'dealloc': too many actual parameters
   Heap.c
   IKP.c
   PointerToNodeMap.c

@@ -1,8 +1,8 @@
 #include "GarbageCollector.h"
 
 
-GC* InitializeGC(Heap* heap, PointerNode_t* map) {
-	GC* collector = (GC*)malloc(sizeof(GC));
+GC* InitializeGC(PointerNode_t* map) {
+	collector = (GC*)malloc(sizeof(GC));
 
 	if (collector == NULL) {
 		return NULL;
@@ -14,7 +14,7 @@ GC* InitializeGC(Heap* heap, PointerNode_t* map) {
 	return collector;
 }
 
-void Mark(GC* collector, int sizeOfArray, PointerNode_t** array, void* pointer) {
+void Mark(int sizeOfArray, PointerNode_t** array, void* pointer) {
 	PointerNode_t* pn = getNodeFromPointer(sizeOfArray, array, pointer);
 	HeapNode_t* hn = collector->heap->lastNode;
 	
@@ -30,7 +30,7 @@ void Mark(GC* collector, int sizeOfArray, PointerNode_t** array, void* pointer) 
 	}
 }
 
-void Sweep(GC* collector) {
+void Sweep() {
 	HeapNode_t* hn = collector->heap->lastNode, *temp = NULL;
 
 	while (hn != NULL) {
@@ -52,6 +52,18 @@ void Sweep(GC* collector) {
 			hn->gen = 2;
 			temp = hn;
 			hn = hn->prev;
+		}
+	}
+}
+
+void ScanThreadStack(HANDLE hThread) {
+	CONTEXT context;
+	memset(&context, 0, sizeof(CONTEXT));
+	context.ContextFlags = CONTEXT_FULL;
+
+	if (GetThreadContext(hThread, &context)) {
+		for (LPVOID current = (LPVOID)context.Esp; current < (LPVOID)context.Ebp; current = (LPVOID)((char*)current + sizeof(LPVOID))) {
+			
 		}
 	}
 }

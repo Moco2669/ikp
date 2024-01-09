@@ -1,12 +1,13 @@
 #include <stdlib.h>
 #include "Heap.h"
 
-void initializeHeap(Heap* heap) {
+void initializeHeap() {
+	heap = (Heap*)malloc(sizeof(Heap));
 	heap->lastNode = NULL;
 	heap->size = HEAPSIZE;
 }
 
-void* addNodeToHeap(Heap* heap, size_t size, void* dataPtr) {
+void* addNodeToHeap(size_t size, void* dataPtr) {
 	//simulirani heap koji ima velicinu u bajtima
 	int temp = heap->size - size;
 	if (temp < 0) {
@@ -38,12 +39,12 @@ void* addNodeToHeap(Heap* heap, size_t size, void* dataPtr) {
 	return data;
 }
 
-void dealloc(Heap* heap, HeapNode_t* node) {
+void dealloc(HeapNode_t* node) {
 	heap->size += node->size;
 	free(node->data);
 }
 
-void removeNodeFromHeap(Heap* heap, void* ptr) {
+void removeNodeFromHeap(void* ptr) {
 	HeapNode_t* hn = heap->lastNode, * temp = NULL;
 
 	while (hn != NULL) {
@@ -55,7 +56,7 @@ void removeNodeFromHeap(Heap* heap, void* ptr) {
 				temp->prev = hn->prev;
 			}
 
-			dealloc(heap, hn);
+			dealloc(hn);
 			break;
 		}
 
