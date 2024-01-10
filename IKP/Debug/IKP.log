@@ -1,11 +1,1 @@
-﻿  GarbageCollector.c
-C:\ikp\ikp\IKP\GarbageCollector.c(38,21): warning C4133: 'function': incompatible types - from 'Heap *' to 'HeapNode_t *'
-C:\ikp\ikp\IKP\GarbageCollector.c(38,29): warning C4020: 'dealloc': too many actual parameters
-  Heap.c
-  IKP.c
-  PointerToNodeMap.c
-C:\ikp\ikp\IKP\PointerToNodeMap.c(15,11): warning C4133: '=': incompatible types - from 'PointerNode_t *' to 'PointerNode_t *'
-C:\ikp\ikp\IKP\PointerToNodeMap.c(19,16): warning C4133: '=': incompatible types - from 'PointerNode_t *' to 'PointerNode_t *'
-C:\ikp\ikp\IKP\PointerToNodeMap.c(39,13): warning C4133: '=': incompatible types - from 'PointerNode_t *' to 'PointerNode_t *'
-  Generating Code...
-  IKP.vcxproj -> C:\ikp\ikp\Debug\IKP.exe
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(439,5): error MSB8020: The build tools for v143 (Platform Toolset = 'v143') cannot be found. To build using the v143 build tools, please install v143 build tools.  Alternatively, you may upgrade to the current Visual Studio tools by selecting the Project menu or right-click the solution, and then selecting "Retarget solution".

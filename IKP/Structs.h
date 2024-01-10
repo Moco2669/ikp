@@ -34,6 +34,7 @@ typedef struct PointerToNodeEntry {
 typedef struct GarbageCollector {
 	Heap* heap;
 	PointerNode_t* mapPointer;
+	unsigned mapSize;
 } GC;
 
 static Heap* heap;

@@ -40,3 +40,8 @@ PointerNode_t* getNodeFromPointer(int sizeOfArray, PointerNode_t **array, void* 
 	}
 	return NULL;
 }
+
+PointerNode_t* initializeMap(int sizeOfArray) {
+	PointerNode_t* map = (PointerNode_t*)malloc(sizeof(PointerNode_t*) * sizeOfArray);
+	return map;
+}

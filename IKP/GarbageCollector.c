@@ -1,15 +1,27 @@
 #include "GarbageCollector.h"
 
+#define HASHMAPSIZE 1024
 
-GC* InitializeGC(PointerNode_t* map) {
+GC* InitializeGC() {
 	collector = (GC*)malloc(sizeof(GC));
 
 	if (collector == NULL) {
 		return NULL;
 	}
 
+	collector->mapSize = HASHMAPSIZE;
+	
+	PointerNode_t* hashMap[HASHMAPSIZE] = initializeMap(HASHMAPSIZE);
+	if (hashMap == NULL) {
+		return NULL;
+	}
+
+	for (int i = 0; i < HASHMAPSIZE; ++i) {
+		hashMap[i] = NULL;
+	}
+
 	collector->heap = heap;
-	collector->mapPointer = map;
+	collector->mapPointer = hashMap;
 
 	return collector;
 }
