@@ -4,7 +4,9 @@
 #include "Structs.h"
 
 
-GC* InitializeGC(PointerNode_t* map);
+GC* InitializeGC();
+
+void* GCMalloc(GC* gc, size_t size);
 
 void Mark(int sizeOfArray, PointerNode_t** array, void* pointer);
 

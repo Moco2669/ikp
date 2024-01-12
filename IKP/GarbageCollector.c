@@ -1,29 +1,44 @@
 #include "GarbageCollector.h"
 
-#define HASHMAPSIZE 1024
-
 GC* InitializeGC() {
-	collector = (GC*)malloc(sizeof(GC));
-
-	if (collector == NULL) {
+	GC* gc = (GC*)malloc(sizeof(GC)); //inicijalizacija GC-ja
+	if (gc == NULL) {
 		return NULL;
 	}
 
-	collector->mapSize = HASHMAPSIZE;
-	
-	PointerNode_t* hashMap[HASHMAPSIZE] = initializeMap(HASHMAPSIZE);
+	PointerNode_t* hashMap[HASHMAPSIZE] = initializeMap(HASHMAPSIZE); //inicijalizacija mape
 	if (hashMap == NULL) {
 		return NULL;
 	}
-
 	for (int i = 0; i < HASHMAPSIZE; ++i) {
 		hashMap[i] = NULL;
 	}
 
-	collector->heap = heap;
-	collector->mapPointer = hashMap;
+	Heap* heap = initializeHeap(); //inicijalizacija hipa
+	if (heap == NULL) {
+		return NULL;
+	}
 
-	return collector;
+	gc->mapSize = HASHMAPSIZE;
+	gc->heap = heap;
+	gc->mapPointer = hashMap;
+
+	return gc;
+}
+
+void* GCMalloc(GC* gc, size_t size) {
+	void* onoStoTrebaDaSeAlocira = malloc(size);
+	if (onoStoTrebaDaSeAlocira == NULL) {
+		return NULL;
+	}
+
+	HeapNode_t* newNode = addNodeToHeap(gc, size, onoStoTrebaDaSeAlocira);
+	//ovde bismo pozvali markandsweep mozda ako je povratna vrednost null
+	if (hashPointer(HASHMAPSIZE, gc->mapPointer, onoStoTrebaDaSeAlocira, newNode)) {
+		return onoStoTrebaDaSeAlocira;
+	}
+
+	return NULL;
 }
 
 void Mark(int sizeOfArray, PointerNode_t** array, void* pointer) {

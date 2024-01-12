@@ -4,10 +4,9 @@
 #include "GarbageCollector.h"
 
 
+Heap* initializeHeap();
 
-void initializeHeap();
-
-void* addNodeToHeap(size_t size, void* dataPtr);
+HeapNode_t* addNodeToHeap(Heap* heap, size_t size, void* dataPtr);
 
 void dealloc(HeapNode_t* node);
 

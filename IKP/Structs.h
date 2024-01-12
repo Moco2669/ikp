@@ -8,6 +8,7 @@
 
 #define POINTERTONODEMAP_H
 #define HEAPSIZE 1024
+#define HASHMAPSIZE 1024
 
 typedef struct HeapNode HeapNode_t;
 
@@ -36,6 +37,7 @@ typedef struct GarbageCollector {
 	PointerNode_t* mapPointer;
 	unsigned mapSize;
 } GC;
-
+/*
 static Heap* heap;
 static GC* collector;
+*/
