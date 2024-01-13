@@ -47,7 +47,7 @@ HeapNode_t* addNodeToHeap(Heap* heap, size_t size, void* data) {
 	//komentar iznad je netacan sada vracamo pokazivac na heapNode jer treba da ubacimo u mapu pa ono
 	return node;
 }
-
+/*
 void dealloc(HeapNode_t* node) {
 	heap->size += node->size;
 	free(node->data);
@@ -74,4 +74,4 @@ void removeNodeFromHeap(void* ptr) {
 	}
 
 	free(hn);
-}
+}*/

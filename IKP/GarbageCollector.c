@@ -6,7 +6,8 @@ GC* InitializeGC() {
 		return NULL;
 	}
 
-	PointerNode_t* hashMap[HASHMAPSIZE] = initializeMap(HASHMAPSIZE); //inicijalizacija mape
+	PointerNode_t* hashMap[HASHMAPSIZE];
+	hashMap[0] = initializeMap(HASHMAPSIZE); //inicijalizacija mape
 	if (hashMap == NULL) {
 		return NULL;
 	}
@@ -26,13 +27,22 @@ GC* InitializeGC() {
 	return gc;
 }
 
-void* GCMalloc(GC* gc, size_t size) {
+HANDLE __stdcall GCCreateThread(GC* gc, LPSECURITY_ATTRIBUTES lpThreadAttributes, SIZE_T dwStackSize, LPTHREAD_START_ROUTINE lpStartAddress, LPVOID lpParameter, DWORD dwCreationFlags, LPDWORD lpThreadId)
+{
+	HANDLE newThread = CreateThread(lpThreadAttributes, dwStackSize, lpStartAddress, lpParameter, dwCreationFlags, lpThreadId);
+	if (addHandleToList(gc->handleList, newThread)) {
+		return newThread;
+	}
+	return NULL;
+}
+
+void* GCMalloc(GC* gc, size_t size) { //DODAJ POKAZIVAC NA TRED koji alocira da bismo znali cije je sta
 	void* onoStoTrebaDaSeAlocira = malloc(size);
 	if (onoStoTrebaDaSeAlocira == NULL) {
 		return NULL;
 	}
 
-	HeapNode_t* newNode = addNodeToHeap(gc, size, onoStoTrebaDaSeAlocira);
+	HeapNode_t* newNode = addNodeToHeap(gc->heap, size, onoStoTrebaDaSeAlocira);
 	//ovde bismo pozvali markandsweep mozda ako je povratna vrednost null
 	if (hashPointer(HASHMAPSIZE, gc->mapPointer, onoStoTrebaDaSeAlocira, newNode)) {
 		return onoStoTrebaDaSeAlocira;
@@ -40,7 +50,7 @@ void* GCMalloc(GC* gc, size_t size) {
 
 	return NULL;
 }
-
+/*
 void Mark(int sizeOfArray, PointerNode_t** array, void* pointer) {
 	PointerNode_t* pn = getNodeFromPointer(sizeOfArray, array, pointer);
 	HeapNode_t* hn = collector->heap->lastNode;
@@ -82,7 +92,7 @@ void Sweep() {
 		}
 	}
 }
-
+*/
 void ScanThreadStack(HANDLE hThread) {
 	CONTEXT context;
 	memset(&context, 0, sizeof(CONTEXT));

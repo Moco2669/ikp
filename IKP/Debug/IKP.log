@@ -1,1 +1,8 @@
-﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(439,5): error MSB8020: The build tools for v143 (Platform Toolset = 'v143') cannot be found. To build using the v143 build tools, please install v143 build tools.  Alternatively, you may upgrade to the current Visual Studio tools by selecting the Project menu or right-click the solution, and then selecting "Retarget solution".
+﻿  GarbageCollector.c
+D:\SNIMANJA\FAKS JU\4GODINA\INDUSTRIJSKI_KOMUNIKACIONI_PROTOKOLI\ikp\IKP\GarbageCollector.c(25,26): warning C4047: '=': 'PointerNode_t *' differs in levels of indirection from 'PointerNode_t **'
+D:\SNIMANJA\FAKS JU\4GODINA\INDUSTRIJSKI_KOMUNIKACIONI_PROTOKOLI\ikp\IKP\GarbageCollector.c(38,45): warning C4047: 'function': 'PointerNode_t **' differs in levels of indirection from 'PointerNode_t *'
+D:\SNIMANJA\FAKS JU\4GODINA\INDUSTRIJSKI_KOMUNIKACIONI_PROTOKOLI\ikp\IKP\GarbageCollector.c(38,33): warning C4024: 'hashPointer': different types for formal and actual parameter 2
+  IKP.c
+  Generating Code...
+D:\SNIMANJA\FAKS JU\4GODINA\INDUSTRIJSKI_KOMUNIKACIONI_PROTOKOLI\ikp\IKP\IKP.c(24): warning C4716: 'test_thread': must return a value
+  IKP.vcxproj -> D:\SNIMANJA\FAKS JU\4GODINA\INDUSTRIJSKI_KOMUNIKACIONI_PROTOKOLI\ikp\Debug\IKP.exe

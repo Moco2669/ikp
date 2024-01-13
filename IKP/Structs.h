@@ -32,9 +32,19 @@ typedef struct PointerToNodeEntry {
 	struct PointerNode_t* next;
 } PointerNode_t;
 
+typedef struct HandleNode {
+	HANDLE handle;
+	struct HandleNode* prev;
+} HandleNode_t;
+
+typedef struct HandleList {
+	HandleNode_t* lastNode;
+} HandleList_t;
+
 typedef struct GarbageCollector {
 	Heap* heap;
 	PointerNode_t* mapPointer;
+	HandleList_t* handleList;
 	unsigned mapSize;
 } GC;
 /*
