@@ -67,6 +67,7 @@ void* GCMalloc(GC* gc, size_t size) { //DODAJ POKAZIVAC NA TRED koji alocira da 
 		}
 	}
 	if (hashPointer(HASHMAPSIZE, gc->mapPointer, onoStoTrebaDaSeAlocira, newNode)) {
+		printf("Alocirali smo memoriju na %p\n", onoStoTrebaDaSeAlocira);
 		return onoStoTrebaDaSeAlocira;
 	}
 
@@ -79,10 +80,10 @@ size_t markAndSweep(GC* gc, unsigned sizeOfArray) {
 	stopAllThreads(gc);
 	printf("Threadovi stopirani\n");
 	HandleNode_t* handleNode = gc->handleList->lastNode;
-	while (handleNode->prev != NULL) {
+	do {
 		ScanThreadStack(gc, handleNode->handle);
 		handleNode = handleNode->prev;
-	}
+	} while (handleNode != NULL);
 	printf("Ciscenje\n");
 	size_t napravljenoMesta = Sweep(gc);
 	resumeAllThreads(gc);
@@ -115,7 +116,7 @@ size_t Sweep(GC* gc) { // treba da se odmarkiraju markirani
 	size_t napravljenoMesta = 0;
 	while (hn != NULL) {
 		if (!hn->marked) {
-			printf("Dealocirali smo nesto, najace\n");
+			printf("Dealocirali smo %p\n", hn->data);
 			napravljenoMesta += dealloc(gc, hn);
 
 			if (temp == NULL) {
@@ -144,7 +145,7 @@ void ScanThreadStack(GC* gc, HANDLE hThread) {
 	context.ContextFlags = CONTEXT_FULL;
 
 	if (GetThreadContext(hThread, &context)) {
-		for (LPVOID current = (LPVOID)context.Esp; current < (LPVOID)context.Ebp; current = (LPVOID)((char*)current + sizeof(LPVOID))) { //eventualno sizeof(1) u slucaju da je neki char bio pa poremetio redosled u steku
+		for (LPVOID current = (LPVOID)context.Esp; current < (LPVOID)context.Ebp; current = (LPVOID)((char*)current + 1)) { //eventualno sizeof(1) u slucaju da je neki char bio pa poremetio redosled u steku
 			PointerNode_t* nodeFromPointer = getNodeFromPointer(HASHMAPSIZE, gc->mapPointer, (void*)current);
 			if (nodeFromPointer != NULL) {
 				Mark(nodeFromPointer->node);

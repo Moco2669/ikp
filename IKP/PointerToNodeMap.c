@@ -2,7 +2,7 @@
 
 
 bool hashPointer(unsigned sizeOfArray, PointerNode_t** array, void* pointer, HeapNode_t* node) {
-	unsigned indexOfNode = (unsigned)pointer % sizeOfArray;
+	unsigned indexOfNode = ((unsigned)pointer) % sizeOfArray;
 	PointerNode_t* current = array[indexOfNode];
 	if (current == NULL) {
 		PointerNode_t* newNode = createNode(pointer, node);
@@ -32,7 +32,7 @@ PointerNode_t* createNode(void* pointer, HeapNode_t* node) {
 }
 
 PointerNode_t* getNodeFromPointer(unsigned sizeOfArray, PointerNode_t **array, void* pointer) {
-	PointerNode_t* current = array[(unsigned)pointer % sizeOfArray];
+	PointerNode_t* current = array[((unsigned)pointer) % sizeOfArray];
 	while (current != NULL) {
 		if (current->data == pointer) {
 			return current;

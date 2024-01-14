@@ -42,7 +42,7 @@ typedef struct HandleList {
 
 typedef struct GarbageCollector {
 	Heap* heap;
-	PointerNode_t* mapPointer;
+	PointerNode_t** mapPointer;
 	HandleList_t* handleList;
 	unsigned mapSize;
 } GC;
