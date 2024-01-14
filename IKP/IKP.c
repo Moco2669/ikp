@@ -33,7 +33,11 @@ int main() {
 	GC* gc = InitializeGC();
 
 	//HANDLE test_tred = CreateThread(NULL, 0, test_thread, NULL, 0, NULL);
-	HANDLE tred1 = GCCreateThread(gc, NULL, 0, test_thread, NULL, 0, NULL);
+	HANDLE tred1 = GCCreateThread(gc, NULL, 0, test_thread, gc, 0, NULL);
+
+	int slovo = getchar();
+
+	CloseHandle(tred1);
 
 	return 0;
 }

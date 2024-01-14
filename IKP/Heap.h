@@ -9,7 +9,7 @@ Heap* initializeHeap();
 
 HeapNode_t* addNodeToHeap(Heap* heap, size_t size, void* dataPtr);
 
-void dealloc(GC* gc, HeapNode_t* node);
+size_t dealloc(GC* gc, HeapNode_t* node);
 
 //void removeNodeFromHeap(void* ptr);
 

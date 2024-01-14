@@ -49,9 +49,11 @@ HeapNode_t* addNodeToHeap(Heap* heap, size_t size, void* data) {
 	return node;
 }
 
-void dealloc(GC* gc, HeapNode_t* node) {
+size_t dealloc(GC* gc, HeapNode_t* node) { //vidi da l je druga generacija blabalablabalbal
 	gc->heap->size += node->size;
+	size_t oslobodjeno = node->size;
 	free(node->data);
+	return oslobodjeno;
 }
 /*
 void removeNodeFromHeap(void* ptr) {

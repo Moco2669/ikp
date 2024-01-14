@@ -6,7 +6,7 @@
 #include <stdbool.h>
 #include <stddef.h>
 
-#define HEAPSIZE 1024
+#define HEAPSIZE 50
 #define HASHMAPSIZE 1024
 
 typedef struct HeapNode HeapNode_t;

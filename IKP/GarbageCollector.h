@@ -13,7 +13,7 @@ HANDLE WINAPI GCCreateThread(GC* gc, LPSECURITY_ATTRIBUTES lpThreadAttributes, S
 
 void* GCMalloc(GC* gc, size_t size);
 
-void markAndSweep(GC* gc, unsigned sizeOfArray);
+size_t markAndSweep(GC* gc, unsigned sizeOfArray);
 
 void stopAllThreads(GC* gc);
 
@@ -21,7 +21,7 @@ void resumeAllThreads(GC* gc);
 
 void Mark(HeapNode_t* heapNode);
 
-void Sweep(GC* gc);
+size_t Sweep(GC* gc);
 
 void ScanThreadStack(GC* gc, HANDLE hThread);
 
