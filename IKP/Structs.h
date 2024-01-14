@@ -6,7 +6,6 @@
 #include <stdbool.h>
 #include <stddef.h>
 
-#define POINTERTONODEMAP_H
 #define HEAPSIZE 1024
 #define HASHMAPSIZE 1024
 

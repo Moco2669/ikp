@@ -30,54 +30,81 @@ GC* InitializeGC() {
 HANDLE __stdcall GCCreateThread(GC* gc, LPSECURITY_ATTRIBUTES lpThreadAttributes, SIZE_T dwStackSize, LPTHREAD_START_ROUTINE lpStartAddress, LPVOID lpParameter, DWORD dwCreationFlags, LPDWORD lpThreadId)
 {
 	HANDLE newThread = CreateThread(lpThreadAttributes, dwStackSize, lpStartAddress, lpParameter, dwCreationFlags, lpThreadId);
-	if (addHandleToList(gc->handleList, newThread)) {
+	if (newThread!=0 && addHandleToList(gc->handleList, newThread)) {
 		return newThread;
+	}
+	if (newThread != 0) {
+		CloseHandle(newThread);
 	}
 	return NULL;
 }
 
-void* GCMalloc(GC* gc, size_t size) { //DODAJ POKAZIVAC NA TRED koji alocira da bismo znali cije je sta
+void* GCMalloc(GC* gc, size_t size) { //DODAJ POKAZIVAC NA TRED koji alocira da bismo znali cije je sta //ne nego samo listu tredova da bismo ih sve zaustavili, mani me od toj
 	void* onoStoTrebaDaSeAlocira = malloc(size);
 	if (onoStoTrebaDaSeAlocira == NULL) {
 		return NULL;
 	}
 
 	HeapNode_t* newNode = addNodeToHeap(gc->heap, size, onoStoTrebaDaSeAlocira);
-	//ovde bismo pozvali markandsweep mozda ako je povratna vrednost null
+	if (newNode == NULL) {
+		MarkAndSweep(gc, HASHMAPSIZE);
+		return NULL; //takodje ovde trebaju free-ovi
+	}
 	if (hashPointer(HASHMAPSIZE, gc->mapPointer, onoStoTrebaDaSeAlocira, newNode)) {
 		return onoStoTrebaDaSeAlocira;
 	}
 
+	//nedostaje bezbedno brisanje nodea i hashovanog pointera ako ne uspe da se hashuje
+
 	return NULL;
 }
-/*
-void Mark(int sizeOfArray, PointerNode_t** array, void* pointer) {
-	PointerNode_t* pn = getNodeFromPointer(sizeOfArray, array, pointer);
-	HeapNode_t* hn = collector->heap->lastNode;
-	
-	while (hn != NULL) {
-		if (hn->gen == 1) {
-			if (hn->pointer == pn->data) {
-				hn->marked = true;
-				break;
-			}
-		}
 
-		hn = hn->prev;
+void markAndSweep(GC* gc, unsigned sizeOfArray) {
+	stopAllThreads(gc);
+	printf("Threadovi stopirani\n");
+	HandleNode_t* handleNode = gc->handleList->lastNode;
+	while (handleNode->prev != NULL) {
+		ScanThreadStack(gc, handleNode->handle);
+		handleNode = handleNode->prev;
+	}
+	printf("Ciscenje\n");
+	Sweep(gc);
+	resumeAllThreads(gc);
+}
+
+void stopAllThreads(GC* gc) {
+	HandleNode_t* handleNode = gc->handleList->lastNode;
+	while (handleNode->prev != NULL) {
+		SuspendThread(handleNode->handle);
+		handleNode = handleNode->prev;
 	}
 }
 
-void Sweep() {
-	HeapNode_t* hn = collector->heap->lastNode, *temp = NULL;
+void resumeAllThreads(GC* gc) {
+	HandleNode_t* handleNode = gc->handleList->lastNode;
+	while (handleNode->prev != NULL) {
+		ResumeThread(handleNode->handle);
+		handleNode = handleNode->prev;
+	}
+}
+
+void Mark(HeapNode_t* heapNode) {
+	heapNode->marked = true;
+	//markChildren ovde nekako... kako??? NZM NAJACE BRE ALOOOOO
+}
+
+void Sweep(GC* gc) {
+	HeapNode_t* hn = gc->heap->lastNode, *temp = NULL;
 
 	while (hn != NULL) {
 		if (!hn->marked) {
-			dealloc(collector->heap, hn);
+			printf("Dealocirali smo nesto, najace\n");
+			dealloc(gc, hn);
 
 			if (temp == NULL) {
-				collector->heap->lastNode = hn->prev;
+				gc->heap->lastNode = hn->prev;
 				free(hn);
-				hn = collector->heap->lastNode;
+				hn = gc->heap->lastNode;
 			}
 			else {
 				temp->prev = hn->prev;
@@ -92,16 +119,18 @@ void Sweep() {
 		}
 	}
 }
-*/
-void ScanThreadStack(HANDLE hThread) {
+
+void ScanThreadStack(GC* gc, HANDLE hThread) {
 	CONTEXT context;
 	memset(&context, 0, sizeof(CONTEXT));
 	context.ContextFlags = CONTEXT_FULL;
 
 	if (GetThreadContext(hThread, &context)) {
-		for (LPVOID current = (LPVOID)context.Esp; current < (LPVOID)context.Ebp; current = (LPVOID)((char*)current + sizeof(LPVOID))) {
-			
+		for (LPVOID current = (LPVOID)context.Esp; current < (LPVOID)context.Ebp; current = (LPVOID)((char*)current + sizeof(LPVOID))) { //eventualno sizeof(1) u slucaju da je neki char bio pa poremetio redosled u steku
+			PointerNode_t* nodeFromPointer = getNodeFromPointer(HASHMAPSIZE, gc->mapPointer, (void*)current);
+			if (nodeFromPointer != NULL) {
+				Mark(nodeFromPointer->node);
+			}
 		}
 	}
 }
-

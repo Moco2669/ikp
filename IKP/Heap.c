@@ -27,6 +27,7 @@ HeapNode_t* addNodeToHeap(Heap* heap, size_t size, void* data) {
 	}
 	
 	//cuva pokazivace i na referencu i na heap
+	//na koji hip brate trenutno smo u hipu alo
 	node->data = data;
 	//node->pointer = dataPtr;
 	node->marked = false;
@@ -47,12 +48,12 @@ HeapNode_t* addNodeToHeap(Heap* heap, size_t size, void* data) {
 	//komentar iznad je netacan sada vracamo pokazivac na heapNode jer treba da ubacimo u mapu pa ono
 	return node;
 }
-/*
-void dealloc(HeapNode_t* node) {
-	heap->size += node->size;
+
+void dealloc(GC* gc, HeapNode_t* node) {
+	gc->heap->size += node->size;
 	free(node->data);
 }
-
+/*
 void removeNodeFromHeap(void* ptr) {
 	HeapNode_t* hn = heap->lastNode, * temp = NULL;
 

@@ -15,19 +15,25 @@ typedef struct Struktura_2 {
 	STRUKTURA_1* dinamickaStruktura1;
 } STRUKTURA_2;
 
+void alocirajIIzgubiPointer(GC* gc) {
+	STRUKTURA_2* s2 = (STRUKTURA_2*)GCMalloc(gc, sizeof(STRUKTURA_2));
+	printf("Alocirali smo nesto sto bi trebalo da bude pokupljeno u sledecem potezu\n");
+}
+
 DWORD WINAPI test_thread(LPVOID lpParam) {
 	GC* gc = (GC*)lpParam;
 	STRUKTURA_2* struktura2 = (STRUKTURA_2*)GCMalloc(gc, sizeof(STRUKTURA_2));
+	alocirajIIzgubiPointer(gc);
 	struktura2->dinamickaStruktura1 = (STRUKTURA_1*)GCMalloc(gc, sizeof(STRUKTURA_1));
 	struktura2->dinamickaStruktura1->broj = 2;
-	printf("%d", struktura2->dinamickaStruktura1->broj);
+	printf("%d\n", struktura2->dinamickaStruktura1->broj);
 }
 
 int main() {
 	GC* gc = InitializeGC();
 
-	HANDLE test_tred = CreateThread(NULL, 0, test_thread, NULL, 0, NULL);
-	//HANDLE tred1 = GCCreateThread(gc, NULL, 0, test_thread, NULL, 0, NULL);
+	//HANDLE test_tred = CreateThread(NULL, 0, test_thread, NULL, 0, NULL);
+	HANDLE tred1 = GCCreateThread(gc, NULL, 0, test_thread, NULL, 0, NULL);
 
 	return 0;
 }

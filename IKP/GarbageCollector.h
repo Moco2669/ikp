@@ -4,6 +4,8 @@
 #include "HandleList.h"
 #include "Structs.h"
 
+#ifndef GARBAGECOLLECTOR_H
+#define GARBAGECOLLECTOR_H
 
 GC* InitializeGC();
 
@@ -11,6 +13,16 @@ HANDLE WINAPI GCCreateThread(GC* gc, LPSECURITY_ATTRIBUTES lpThreadAttributes, S
 
 void* GCMalloc(GC* gc, size_t size);
 
-void Mark(int sizeOfArray, PointerNode_t** array, void* pointer);
+void markAndSweep(GC* gc, unsigned sizeOfArray);
 
-void Sweep();
+void stopAllThreads(GC* gc);
+
+void resumeAllThreads(GC* gc);
+
+void Mark(HeapNode_t* heapNode);
+
+void Sweep(GC* gc);
+
+void ScanThreadStack(GC* gc, HANDLE hThread);
+
+#endif
