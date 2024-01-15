@@ -52,6 +52,7 @@ HANDLE __stdcall GCCreateThread(GC* gc, LPSECURITY_ATTRIBUTES lpThreadAttributes
 }
 
 void* GCMalloc(GC* gc, size_t size) { //DODAJ POKAZIVAC NA TRED koji alocira da bismo znali cije je sta //ne nego samo listu tredova da bismo ih sve zaustavili, mani me od toj
+	EnterCriticalSection(&gc->heap->lock);
 	void* onoStoTrebaDaSeAlocira = malloc(size);
 	if (onoStoTrebaDaSeAlocira == NULL) {
 		return NULL;
@@ -82,6 +83,7 @@ void* GCMalloc(GC* gc, size_t size) { //DODAJ POKAZIVAC NA TRED koji alocira da 
 
 	//nedostaje bezbedno brisanje nodea i hashovanog pointera ako ne uspe da se hashuje
 	free(onoStoTrebaDaSeAlocira);
+	LeaveCriticalSection(&gc->heap->lock);
 	return NULL;
 }
 
@@ -149,6 +151,7 @@ size_t Sweep(GC* gc) { // treba da se odmarkiraju markirani
 }
 
 void ScanThreadStack(GC* gc, HANDLE hThread) {
+	EnterCriticalSection(&gc->heap->lock);
 	CONTEXT context;
 	memset(&context, 0, sizeof(CONTEXT));
 	context.ContextFlags = CONTEXT_FULL;
@@ -162,4 +165,5 @@ void ScanThreadStack(GC* gc, HANDLE hThread) {
 			}
 		}
 	}
+	LeaveCriticalSection(&gc->heap->lock);
 }

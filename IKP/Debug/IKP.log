@@ -1,1 +1,3 @@
-﻿
+﻿  IKP.c
+C:\ikp\ikp\IKP\IKP.c(30): warning C4716: 'test_thread': must return a value
+  IKP.vcxproj -> C:\ikp\ikp\Debug\IKP.exe

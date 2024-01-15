@@ -23,6 +23,7 @@ struct HeapNode {
 typedef struct Heap {
 	HeapNode_t* lastNode;
 	int size;
+	CRITICAL_SECTION lock;
 } Heap;
 
 typedef struct PointerToNodeEntry {

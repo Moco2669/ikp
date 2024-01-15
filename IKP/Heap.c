@@ -7,6 +7,7 @@ Heap* initializeHeap() {
 		return NULL;
 	}
 
+	InitializeCriticalSection(&heap->lock);
 	heap->lastNode = NULL;
 	heap->size = HEAPSIZE;
 
@@ -15,6 +16,7 @@ Heap* initializeHeap() {
 
 HeapNode_t* addNodeToHeap(Heap* heap, size_t size, void* data) {
 	//simulirani heap koji ima velicinu u bajtima
+	EnterCriticalSection(&heap->lock);
 	int temp = heap->size - size;
 	if (temp < 0) {
 		//ovde treba da se pozove GC
@@ -44,6 +46,7 @@ HeapNode_t* addNodeToHeap(Heap* heap, size_t size, void* data) {
 	
 	heap->lastNode = node;
 
+	LeaveCriticalSection(&heap->lock);
 	//vraca pokazivac na heap koji moze da se kastuje u potrebni tip podataka kao kod pravog malloca
 	//komentar iznad je netacan sada vracamo pokazivac na heapNode jer treba da ubacimo u mapu pa ono
 	return node;
