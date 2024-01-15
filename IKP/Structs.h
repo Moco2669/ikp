@@ -7,7 +7,7 @@
 #include <stddef.h>
 
 #define HEAPSIZE 50
-#define HASHMAPSIZE 1024
+#define HASHMAPSIZE 10
 
 typedef struct HeapNode HeapNode_t;
 
@@ -28,7 +28,7 @@ typedef struct Heap {
 typedef struct PointerToNodeEntry {
 	void* data;
 	HeapNode_t* node;
-	struct PointerNode_t* next;
+	struct PointerToNodeEntry* next;
 } PointerNode_t;
 
 typedef struct HandleNode {
@@ -42,7 +42,7 @@ typedef struct HandleList {
 
 typedef struct GarbageCollector {
 	Heap* heap;
-	PointerNode_t** mapPointer;
+	PointerNode_t*** mapPointer;
 	HandleList_t* handleList;
 	unsigned mapSize;
 } GC;

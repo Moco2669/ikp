@@ -6,9 +6,9 @@ GC* InitializeGC() {
 		return NULL;
 	}
 
-	PointerNode_t* hashMap[HASHMAPSIZE];
-	hashMap[0] = initializeMap(HASHMAPSIZE);
+	PointerNode_t** hashMap = initializeMap(HASHMAPSIZE);
 	if (hashMap == NULL) {
+		free(gc);
 		return NULL;
 	}
 	for (int i = 0; i < HASHMAPSIZE; ++i) {
@@ -17,11 +17,13 @@ GC* InitializeGC() {
 
 	Heap* heap = initializeHeap();
 	if (heap == NULL) {
+		free(gc);
 		return NULL;
 	}
 
 	HandleList_t* handleList = initializeHandleList();
 	if (handleList == NULL) {
+		free(gc);
 		return NULL;
 	}
 
@@ -29,6 +31,10 @@ GC* InitializeGC() {
 	gc->heap = heap;
 	gc->mapPointer = hashMap;
 	gc->handleList = handleList;
+
+	for (int i = 0; i < HASHMAPSIZE; ++i) {
+		printf("%p\n", gc->mapPointer[i]);
+	}
 
 	return gc;
 }
@@ -68,6 +74,9 @@ void* GCMalloc(GC* gc, size_t size) { //DODAJ POKAZIVAC NA TRED koji alocira da 
 	}
 	if (hashPointer(HASHMAPSIZE, gc->mapPointer, onoStoTrebaDaSeAlocira, newNode)) {
 		printf("Alocirali smo memoriju na %p\n", onoStoTrebaDaSeAlocira);
+		for (int i = 0; i < HASHMAPSIZE; ++i) {
+			printf("%p\n", gc->mapPointer[i]);
+		}
 		return onoStoTrebaDaSeAlocira;
 	}
 
@@ -146,7 +155,8 @@ void ScanThreadStack(GC* gc, HANDLE hThread) {
 
 	if (GetThreadContext(hThread, &context)) {
 		for (LPVOID current = (LPVOID)context.Esp; current < (LPVOID)context.Ebp; current = (LPVOID)((char*)current + 1)) { //eventualno sizeof(1) u slucaju da je neki char bio pa poremetio redosled u steku
-			PointerNode_t* nodeFromPointer = getNodeFromPointer(HASHMAPSIZE, gc->mapPointer, (void*)current);
+			void* dataOnStack = *(void**)(current);
+			PointerNode_t* nodeFromPointer = getNodeFromPointer(HASHMAPSIZE, gc->mapPointer, dataOnStack);
 			if (nodeFromPointer != NULL) {
 				Mark(nodeFromPointer->node);
 			}

@@ -12,6 +12,6 @@ bool hashPointer(unsigned sizeOfArray, PointerNode_t** array, void* pointer, Hea
 
 PointerNode_t* getNodeFromPointer(unsigned sizeOfArray, PointerNode_t** array, void* pointer);
 
-PointerNode_t* initializeMap(unsigned sizeOfArray);
+PointerNode_t** initializeMap(unsigned sizeOfArray);
 
 #endif

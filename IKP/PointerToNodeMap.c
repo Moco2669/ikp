@@ -4,9 +4,9 @@
 bool hashPointer(unsigned sizeOfArray, PointerNode_t** array, void* pointer, HeapNode_t* node) {
 	unsigned indexOfNode = ((unsigned)pointer) % sizeOfArray;
 	PointerNode_t* current = array[indexOfNode];
+	PointerNode_t* newNode = createNode(pointer, node);
+	if (newNode == NULL) return false;
 	if (current == NULL) {
-		PointerNode_t* newNode = createNode(pointer, node);
-		if (newNode == NULL) return false;
 		array[indexOfNode] = newNode;
 		return true;
 	}
@@ -14,8 +14,6 @@ bool hashPointer(unsigned sizeOfArray, PointerNode_t** array, void* pointer, Hea
 	{
 		current = current->next;
 	}
-	PointerNode_t* newNode = createNode(pointer, node);
-	if (newNode == NULL) return false;
 	current->next = newNode;
 	return true;
 } //mozda bi ovde mogo neki bool ili cak da se opet vrati pokazivac na pointernode nzm iskr videcemo kasnije
@@ -41,7 +39,7 @@ PointerNode_t* getNodeFromPointer(unsigned sizeOfArray, PointerNode_t **array, v
 	return NULL;
 }
 
-PointerNode_t* initializeMap(unsigned sizeOfArray) {
-	PointerNode_t* map = (PointerNode_t*)malloc(sizeof(PointerNode_t*) * sizeOfArray);
+PointerNode_t** initializeMap(unsigned sizeOfArray) {
+	PointerNode_t** map = (PointerNode_t**)malloc(sizeof(PointerNode_t*) * sizeOfArray);
 	return map;
 }
