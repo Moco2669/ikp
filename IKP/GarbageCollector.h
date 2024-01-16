@@ -9,6 +9,8 @@
 
 GC* InitializeGC();
 
+void DeinitializeGC(GC* gc);
+
 HANDLE WINAPI GCCreateThread(GC* gc, LPSECURITY_ATTRIBUTES lpThreadAttributes, SIZE_T dwStackSize, LPTHREAD_START_ROUTINE lpStartAddress, LPVOID lpParameter, DWORD dwCreationFlags, LPDWORD lpThreadId);
 
 void* GCMalloc(GC* gc, size_t size);

@@ -43,3 +43,14 @@ PointerNode_t** initializeMap(unsigned sizeOfArray) {
 	PointerNode_t** map = (PointerNode_t**)malloc(sizeof(PointerNode_t*) * sizeOfArray);
 	return map;
 }
+
+void DeinitializeMap(PointerNode_t** map, unsigned sizeOfArray) {
+	for (int i = 0; i < sizeOfArray; i++) {
+        PointerNode_t* current = map[i];
+        while (current != NULL) {
+            PointerNode_t* temp = current;
+            current = current->next;
+            free(temp);
+        }
+    }
+}
