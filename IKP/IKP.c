@@ -40,10 +40,12 @@ int main() {
 
 	//HANDLE test_tred = CreateThread(NULL, 0, test_thread, NULL, 0, NULL);
 	HANDLE tred1 = GCCreateThread(gc, NULL, 0, test_thread, gc, 0, NULL);
+	HANDLE tred2 = GCCreateThread(gc, NULL, 0, test_thread, gc, 0, NULL);
 
 	int slovo = getchar();
 
 	CloseHandle(tred1);
+	CloseHandle(tred2);
 
 	DeinitializeGC(gc);
 

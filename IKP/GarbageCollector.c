@@ -72,6 +72,7 @@ HANDLE __stdcall GCCreateThread(GC* gc, LPSECURITY_ATTRIBUTES lpThreadAttributes
 }
 
 void* GCMalloc(GC* gc, size_t size) { //DODAJ POKAZIVAC NA TRED koji alocira da bismo znali cije je sta //ne nego samo listu tredova da bismo ih sve zaustavili, mani me od toj
+	EnterCriticalSection(&gc->heap->lock);
 	void* onoStoTrebaDaSeAlocira = malloc(size);
 	if (onoStoTrebaDaSeAlocira == NULL) {
 		return NULL;
@@ -104,6 +105,7 @@ void* GCMalloc(GC* gc, size_t size) { //DODAJ POKAZIVAC NA TRED koji alocira da 
 
 	//nedostaje bezbedno brisanje nodea i hashovanog pointera ako ne uspe da se hashuje
 	free(onoStoTrebaDaSeAlocira);
+	LeaveCriticalSection(&gc->heap->lock);
 	return NULL;
 }
 
@@ -236,6 +238,7 @@ void ScanAndMarkStack(GC* gc) {
 }*/
 
 void ScanThreadStack2(GC* gc, HANDLE hThread) {
+	EnterCriticalSection(&gc->heap->lock);
 	PVOID StackBase;
 	PVOID StackLimit;
 	CONTEXT context;
@@ -258,6 +261,7 @@ void ScanThreadStack2(GC* gc, HANDLE hThread) {
 			Mark(gc, nodeFromPointer->node);
 		}
 	}
+	LeaveCriticalSection(&gc->heap->lock);
 }
 
 VirtualStack_t* initializeStack() {
