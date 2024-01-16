@@ -30,6 +30,9 @@
     <ClCompile Include="HandleList.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="VirtualStack.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Heap.h">
@@ -45,6 +48,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="HandleList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VirtualStack.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

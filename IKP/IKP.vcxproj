@@ -144,6 +144,7 @@
     <ClCompile Include="Heap.c" />
     <ClCompile Include="IKP.c" />
     <ClCompile Include="PointerToNodeMap.c" />
+    <ClCompile Include="VirtualStack.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GarbageCollector.h" />
@@ -151,6 +152,7 @@
     <ClInclude Include="Heap.h" />
     <ClInclude Include="PointerToNodeMap.h" />
     <ClInclude Include="Structs.h" />
+    <ClInclude Include="VirtualStack.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

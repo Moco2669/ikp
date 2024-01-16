@@ -18,15 +18,21 @@ typedef struct Struktura_2 {
 void alocirajIIzgubiPointer(GC* gc) {
 	STRUKTURA_2* s2 = (STRUKTURA_2*)GCMalloc(gc, sizeof(STRUKTURA_2));
 	printf("Alocirali smo nesto sto bi trebalo da bude pokupljeno u sledecem potezu\n");
+
+	removeItemsFromStack(gc, s2);
 }
 
 DWORD WINAPI test_thread(LPVOID lpParam) {
 	GC* gc = (GC*)lpParam;
 	STRUKTURA_2* struktura2 = (STRUKTURA_2*)GCMalloc(gc, sizeof(STRUKTURA_2));
+	printf("Pokazivac sa steka koji treba da se markira: %p\n", struktura2);
 	alocirajIIzgubiPointer(gc);
 	struktura2->dinamickaStruktura1 = (STRUKTURA_1*)GCMalloc(gc, sizeof(STRUKTURA_1));
 	struktura2->dinamickaStruktura1->broj = 2;
 	printf("%d\n", struktura2->dinamickaStruktura1->broj);
+
+	removeItemsFromStack(gc, struktura2);
+	removeItemsFromStack(gc, struktura2->dinamickaStruktura1);
 }
 
 int main() {

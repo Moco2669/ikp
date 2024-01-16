@@ -40,10 +40,20 @@ typedef struct HandleList {
 	HandleNode_t* lastNode;
 } HandleList_t;
 
+typedef struct VirtualStack {
+	struct PointerOnStack* lastPointer;
+} VirtualStack_t;
+
+typedef struct PointerOnStack {
+	void* pointerFromStack;
+	struct PointerOnStack* prev;
+} PointerOnStack_t;
+
 typedef struct GarbageCollector {
 	Heap* heap;
 	PointerNode_t*** mapPointer;
 	HandleList_t* handleList;
+	VirtualStack_t* virtualStack;
 	unsigned mapSize;
 } GC;
 /*

@@ -2,6 +2,7 @@
 #include "Heap.h"
 #include "PointerToNodeMap.h"
 #include "HandleList.h"
+#include "VirtualStack.h"
 #include "Structs.h"
 
 #ifndef GARBAGECOLLECTOR_H
@@ -10,6 +11,8 @@
 GC* InitializeGC();
 
 void DeinitializeGC(GC* gc);
+
+VirtualStack_t* initializeStack();
 
 HANDLE WINAPI GCCreateThread(GC* gc, LPSECURITY_ATTRIBUTES lpThreadAttributes, SIZE_T dwStackSize, LPTHREAD_START_ROUTINE lpStartAddress, LPVOID lpParameter, DWORD dwCreationFlags, LPDWORD lpThreadId);
 
@@ -21,10 +24,16 @@ void stopAllThreads(GC* gc);
 
 void resumeAllThreads(GC* gc);
 
-void Mark(HeapNode_t* heapNode);
+void Mark(GC* gc, HeapNode_t* heapNode);
 
 size_t Sweep(GC* gc);
 
 void ScanThreadStack(GC* gc, HANDLE hThread);
+
+void ScanThreadStack2(GC* gc, HANDLE hThread);
+
+void removeItemsFromStack(GC* gc, void* pointer);
+
+void scanVirtualStack(GC* gc);
 
 #endif
