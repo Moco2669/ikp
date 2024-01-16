@@ -13,6 +13,16 @@ Heap* initializeHeap() {
 	return heap;
 }
 
+void DeinitializeHeap(Heap* h) {
+	struct HeapNode* temp;
+
+	while (h->lastNode != NULL) {
+		temp = h->lastNode->prev;
+		free(h->lastNode);
+		h->lastNode = temp;
+	}
+}
+
 HeapNode_t* addNodeToHeap(Heap* heap, size_t size, void* data) {
 	//simulirani heap koji ima velicinu u bajtima
 	int temp = heap->size - size;

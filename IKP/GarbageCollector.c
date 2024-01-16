@@ -18,12 +18,15 @@ GC* InitializeGC() {
 	Heap* heap = initializeHeap();
 	if (heap == NULL) {
 		free(gc);
+		free(hashMap);
 		return NULL;
 	}
 
 	HandleList_t* handleList = initializeHandleList();
 	if (handleList == NULL) {
 		free(gc);
+		free(hashMap);
+		free(heap);
 		return NULL;
 	}
 
@@ -37,6 +40,12 @@ GC* InitializeGC() {
 	}
 
 	return gc;
+}
+
+void DeinitializeGC(GC* gc) {
+	DeinitializeHeap(gc->heap);
+	DeinitializeMap(gc->mapPointer, HASHMAPSIZE);
+	free(gc);
 }
 
 HANDLE __stdcall GCCreateThread(GC* gc, LPSECURITY_ATTRIBUTES lpThreadAttributes, SIZE_T dwStackSize, LPTHREAD_START_ROUTINE lpStartAddress, LPVOID lpParameter, DWORD dwCreationFlags, LPDWORD lpThreadId)

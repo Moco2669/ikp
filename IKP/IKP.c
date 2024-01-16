@@ -39,5 +39,7 @@ int main() {
 
 	CloseHandle(tred1);
 
+	DeinitializeGC(gc);
+
 	return 0;
 }
