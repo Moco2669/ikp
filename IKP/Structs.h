@@ -6,8 +6,8 @@
 #include <stdbool.h>
 #include <stddef.h>
 
-#define POINTERTONODEMAP_H
-#define HEAPSIZE 1024
+#define HEAPSIZE 50
+#define HASHMAPSIZE 10
 
 typedef struct HeapNode HeapNode_t;
 
@@ -28,13 +28,25 @@ typedef struct Heap {
 typedef struct PointerToNodeEntry {
 	void* data;
 	HeapNode_t* node;
-	struct PointerNode_t* next;
+	struct PointerToNodeEntry* next;
 } PointerNode_t;
+
+typedef struct HandleNode {
+	HANDLE handle;
+	struct HandleNode* prev;
+} HandleNode_t;
+
+typedef struct HandleList {
+	HandleNode_t* lastNode;
+} HandleList_t;
 
 typedef struct GarbageCollector {
 	Heap* heap;
-	PointerNode_t* mapPointer;
+	PointerNode_t*** mapPointer;
+	HandleList_t* handleList;
+	unsigned mapSize;
 } GC;
-
+/*
 static Heap* heap;
 static GC* collector;
+*/

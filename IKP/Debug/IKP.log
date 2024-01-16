@@ -1,11 +1,1 @@
-﻿  GarbageCollector.c
-C:\ikp\ikp\IKP\GarbageCollector.c(38,21): warning C4133: 'function': incompatible types - from 'Heap *' to 'HeapNode_t *'
-C:\ikp\ikp\IKP\GarbageCollector.c(38,29): warning C4020: 'dealloc': too many actual parameters
-  Heap.c
-  IKP.c
-  PointerToNodeMap.c
-C:\ikp\ikp\IKP\PointerToNodeMap.c(15,11): warning C4133: '=': incompatible types - from 'PointerNode_t *' to 'PointerNode_t *'
-C:\ikp\ikp\IKP\PointerToNodeMap.c(19,16): warning C4133: '=': incompatible types - from 'PointerNode_t *' to 'PointerNode_t *'
-C:\ikp\ikp\IKP\PointerToNodeMap.c(39,13): warning C4133: '=': incompatible types - from 'PointerNode_t *' to 'PointerNode_t *'
-  Generating Code...
-  IKP.vcxproj -> C:\ikp\ikp\Debug\IKP.exe
+﻿
