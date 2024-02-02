@@ -1,6 +1,7 @@
 #include "VirtualStack.h"
 
 void* addItemsToStack(VirtualStack_t* virtualStack, void* pointer) {
+	EnterCriticalSection(&virtualStack->lock);
 	PointerOnStack_t* pos = (PointerOnStack_t*)malloc(sizeof(PointerOnStack_t));
 	if (pos == NULL) {
 		return NULL;
@@ -8,6 +9,7 @@ void* addItemsToStack(VirtualStack_t* virtualStack, void* pointer) {
 	pos->pointerFromStack = pointer;
 	pos->prev = virtualStack->lastPointer;
 	virtualStack->lastPointer = pos;
+	LeaveCriticalSection(&virtualStack->lock);
 	return pointer;
 }
 

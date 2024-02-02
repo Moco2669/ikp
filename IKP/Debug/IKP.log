@@ -1,1 +1,28 @@
-﻿
+﻿  GarbageCollector.c
+C:\Users\Ludi\Desktop\ikp\IKP\GarbageCollector.c(45,26): warning C4047: '=': 'PointerNode_t ***' differs in levels of indirection from 'PointerNode_t **'
+C:\Users\Ludi\Desktop\ikp\IKP\GarbageCollector.c(50,9): warning C4013: 'printf' undefined; assuming extern returning int
+C:\Users\Ludi\Desktop\ikp\IKP\GarbageCollector.c(58,32): warning C4047: 'function': 'PointerNode_t **' differs in levels of indirection from 'PointerNode_t ***'
+C:\Users\Ludi\Desktop\ikp\IKP\GarbageCollector.c(58,20): warning C4024: 'DeinitializeMap': different types for formal and actual parameter 1
+C:\Users\Ludi\Desktop\ikp\IKP\GarbageCollector.c(97,45): warning C4047: 'function': 'PointerNode_t **' differs in levels of indirection from 'PointerNode_t ***'
+C:\Users\Ludi\Desktop\ikp\IKP\GarbageCollector.c(97,33): warning C4024: 'hashPointer': different types for formal and actual parameter 2
+C:\Users\Ludi\Desktop\ikp\IKP\GarbageCollector.c(153,82): warning C4047: 'function': 'PointerNode_t **' differs in levels of indirection from 'PointerNode_t ***'
+C:\Users\Ludi\Desktop\ikp\IKP\GarbageCollector.c(153,70): warning C4024: 'getNodeFromPointer': different types for formal and actual parameter 2
+C:\Users\Ludi\Desktop\ikp\IKP\GarbageCollector.c(197,83): warning C4047: 'function': 'PointerNode_t **' differs in levels of indirection from 'PointerNode_t ***'
+C:\Users\Ludi\Desktop\ikp\IKP\GarbageCollector.c(197,71): warning C4024: 'getNodeFromPointer': different types for formal and actual parameter 2
+C:\Users\Ludi\Desktop\ikp\IKP\GarbageCollector.c(250,26): warning C4047: '=': 'PVOID' differs in levels of indirection from 'DWORD'
+C:\Users\Ludi\Desktop\ikp\IKP\GarbageCollector.c(251,27): warning C4047: '=': 'PVOID' differs in levels of indirection from 'DWORD'
+C:\Users\Ludi\Desktop\ikp\IKP\GarbageCollector.c(257,56): warning C4133: '<': incompatible types - from 'PVOID' to 'PBYTE'
+C:\Users\Ludi\Desktop\ikp\IKP\GarbageCollector.c(260,82): warning C4047: 'function': 'PointerNode_t **' differs in levels of indirection from 'PointerNode_t ***'
+C:\Users\Ludi\Desktop\ikp\IKP\GarbageCollector.c(260,70): warning C4024: 'getNodeFromPointer': different types for formal and actual parameter 2
+C:\Users\Ludi\Desktop\ikp\IKP\GarbageCollector.c(248,9): warning C4101: 'tib': unreferenced local variable
+C:\Users\Ludi\Desktop\ikp\IKP\GarbageCollector.c(296,82): warning C4047: 'function': 'PointerNode_t **' differs in levels of indirection from 'PointerNode_t ***'
+C:\Users\Ludi\Desktop\ikp\IKP\GarbageCollector.c(296,70): warning C4024: 'getNodeFromPointer': different types for formal and actual parameter 2
+  HandleList.c
+  Heap.c
+  IKP.c
+  PointerToNodeMap.c
+C:\Users\Ludi\Desktop\ikp\IKP\PointerToNodeMap.c(48,20): warning C4018: '<': signed/unsigned mismatch
+  VirtualStack.c
+  Generating Code...
+C:\Users\Ludi\Desktop\ikp\IKP\IKP.c(36): warning C4716: 'test_thread': must return a value
+  IKP.vcxproj -> C:\Users\Ludi\Desktop\ikp\Debug\IKP.exe

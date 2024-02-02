@@ -43,6 +43,7 @@ typedef struct HandleList {
 
 typedef struct VirtualStack {
 	struct PointerOnStack* lastPointer;
+	CRITICAL_SECTION lock;
 } VirtualStack_t;
 
 typedef struct PointerOnStack {

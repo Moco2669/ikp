@@ -56,6 +56,7 @@ GC* InitializeGC() {
 void DeinitializeGC(GC* gc) {
 	DeinitializeHeap(gc->heap);
 	DeinitializeMap(gc->mapPointer, HASHMAPSIZE);
+	DeinitializeStack(gc->virtualStack);
 	free(gc);
 }
 
@@ -269,8 +270,20 @@ VirtualStack_t* initializeStack() {
 	if (stack == NULL) {
 		return NULL;
 	}
+
+	InitializeCriticalSection(&stack->lock);
 	stack->lastPointer = NULL;
 	return stack;
+}
+
+void DeinitializeStack(VirtualStack_t* stack) {
+	PointerOnStack_t* temp;
+
+	while (stack->lastPointer != NULL) {
+		temp = stack->lastPointer->prev;
+		free(stack->lastPointer);
+		stack->lastPointer = temp;
+	}
 }
 
 void removeItemsFromStack(GC* gc, void* pointer) {

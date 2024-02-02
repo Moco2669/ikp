@@ -36,4 +36,6 @@ void removeItemsFromStack(GC* gc, void* pointer);
 
 void scanVirtualStack(GC* gc);
 
+void DeinitializeStack(VirtualStack_t* stack);
+
 #endif
